@@ -1,6 +1,13 @@
-#include <iostream>
+#include "auto_pong.hpp"
+#include "raylib.h"
 
 int main(void) {
-  std::cout << "Hello, world\n";
+  Game game;
+
+  while (game.is_running()) {
+    game.show();
+    game.update();
+  }
+
   return 0;
 }
