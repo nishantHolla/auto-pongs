@@ -7,27 +7,7 @@
 Game::Game() : grid(ROW_COUNT, std::vector(COL_COUNT, 0)) {
   InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
   SetTargetFPS(60);
-
-  for (int r = 0, rows = ROW_COUNT; r < rows; ++r) {
-    for (int c = 0, cols = COL_COUNT; c < cols; ++c) {
-      grid[r][c] = (c < cols / 2) ? 0 : 1;
-    }
-  }
-
-  pongs[0] = {
-    {3 * CELL_WIDTH, 7 * CELL_HEIGHT},
-    {6, 8},
-    {255, 255, 255, 255},
-    {  0,   0,   0, 255}
-  };
-
-  pongs[1] = {
-    {13 * CELL_WIDTH, 7 * CELL_HEIGHT},
-    {-6, -4},
-    {  0,   0,  0,  255},
-    {255, 255, 255, 255}
-  };
-
+  two_pong_setup(grid, pongs);
 }
 
 Game::~Game() {

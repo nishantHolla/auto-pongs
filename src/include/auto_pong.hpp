@@ -12,11 +12,11 @@ constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 800;
 constexpr const char* WINDOW_TITLE = "Auto Pong";
 
-constexpr int ROW_COUNT = 10;
-constexpr int COL_COUNT = 10;
+constexpr int ROW_COUNT = 16;
+constexpr int COL_COUNT = 16;
 constexpr int CELL_WIDTH = (WINDOW_WIDTH / COL_COUNT);
 constexpr int CELL_HEIGHT = (WINDOW_HEIGHT / ROW_COUNT);
-constexpr int PONG_RADIUS = CELL_WIDTH * 0.2;
+constexpr int PONG_RADIUS = CELL_WIDTH * 0.25;
 
 struct Pong {
   Vector2 pos;
@@ -44,5 +44,9 @@ private:
   bool in_bound(int x, int y);
 };
 
+void two_pong_setup(Grid& grid, PongMap& pongs);
+void three_pong_setup(Grid& grid, PongMap& pongs);
+void four_pong_setup(Grid& grid, PongMap& pongs);
+Vector2 random_vector_with_mag(float magnitude);
 
 #endif // !AUTO_PONG_H_
