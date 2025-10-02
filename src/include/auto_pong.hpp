@@ -32,7 +32,7 @@ typedef std::unordered_map<int, Pong> PongMap;
 
 class Game {
 public:
-  Game();
+  Game(int number_of_pongs);
   ~Game();
   void draw_background() const;
   void draw_scores() const;
@@ -45,6 +45,7 @@ private:
   Grid grid;
   PongMap pongs;
   bool in_bound(int x, int y);
+  void init_pongs();
 };
 
 void two_pong_setup(Grid& grid, PongMap& pongs);

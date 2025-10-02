@@ -3,21 +3,29 @@
 #include "raymath.h"
 
 #include <vector>
+#include <iostream>
 
-Game::Game() : grid(ROW_COUNT, std::vector(COL_COUNT, 0)) {
+Game::Game(int number_of_pongs) : grid(ROW_COUNT, std::vector(COL_COUNT, 0)) {
   InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
+  SetWindowTitle(WINDOW_TITLE);
   SetTargetFPS(60);
-  four_pong_setup(grid, pongs);
 
-  for (auto& [id, pong] : pongs) {
-    pong.score = 0;
+  if (number_of_pongs == 2) {
+    two_pong_setup(grid, pongs);
+  }
+  else if (number_of_pongs == 3) {
+    three_pong_setup(grid, pongs);
+  }
+  else if (number_of_pongs == 4) {
+    four_pong_setup(grid, pongs);
+  }
+  else {
+    std::cout << "ERROR: Pong setup for " << number_of_pongs << " is not defined. Please define the function first and then run the game.\n";
+    CloseWindow();
+    exit(1);
   }
 
-  for (int r = 0, rows = grid.size(); r < rows; ++r) {
-    for (int c = 0, cols = grid[r].size(); c < cols; ++c) {
-      ++pongs[grid[r][c]].score;
-    }
-  }
+  init_pongs();
 }
 
 Game::~Game() {
@@ -135,4 +143,16 @@ void Game::update() {
 
 bool Game::in_bound(int x, int y) {
   return (x >= 0 && y >= 0 && x < COL_COUNT && y < ROW_COUNT);
+}
+
+void Game::init_pongs() {
+  for (auto& [id, pong] : pongs) {
+    pong.score = 0;
+  }
+
+  for (int r = 0, rows = grid.size(); r < rows; ++r) {
+    for (int c = 0, cols = grid[r].size(); c < cols; ++c) {
+      ++pongs[grid[r][c]].score;
+    }
+  }
 }
