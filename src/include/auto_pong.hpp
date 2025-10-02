@@ -6,14 +6,17 @@
 #include <vector>
 #include <unordered_map>
 
+#define SHOW_DEBUG_GRID 0
+
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 800;
 constexpr const char* WINDOW_TITLE = "Auto Pong";
 
-constexpr int ROW_COUNT = 15;
-constexpr int COL_COUNT = 16;
+constexpr int ROW_COUNT = 10;
+constexpr int COL_COUNT = 10;
 constexpr int CELL_WIDTH = (WINDOW_WIDTH / COL_COUNT);
 constexpr int CELL_HEIGHT = (WINDOW_HEIGHT / ROW_COUNT);
+constexpr int PONG_RADIUS = CELL_WIDTH * 0.2;
 
 struct Pong {
   Vector2 pos;
@@ -38,6 +41,8 @@ public:
 private:
   Grid grid;
   PongMap pongs;
+  bool in_bound(int x, int y);
 };
+
 
 #endif // !AUTO_PONG_H_
