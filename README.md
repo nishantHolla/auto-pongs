@@ -9,15 +9,19 @@ Supports any number of pongs, not just 2.
 
 ### Two pongs
 
-![Tow pongs](./docs/assets/2_pong.gif)
+
+https://github.com/user-attachments/assets/6f35d3b9-5290-4791-bd9b-b85de5945eb0
+
 
 ### Three pongs
 
-![Three pongs](./docs/assets/3_pong.gif)
+
+https://github.com/user-attachments/assets/e22238ed-71a4-4798-89c9-34eb8c4e7874
+
 
 ### Four pongs
 
-![Four pongs](./docs/assets/4_pong.gif)
+https://github.com/user-attachments/assets/918d68c0-0201-4846-8dad-404f8fe75e52
 
 ## Build and Run
 
