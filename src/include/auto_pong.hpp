@@ -21,6 +21,8 @@ constexpr int PONG_RADIUS = CELL_WIDTH * 0.25;
 struct Pong {
   Vector2 pos;
   Vector2 vel;
+  Vector2 text_pos;
+  int score;
   Color bg_color;
   Color fg_color;
 };
@@ -33,6 +35,7 @@ public:
   Game();
   ~Game();
   void draw_background() const;
+  void draw_scores() const;
   void draw_pongs() const;
   bool is_running() const;
   void show() const;

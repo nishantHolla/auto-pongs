@@ -7,7 +7,17 @@
 Game::Game() : grid(ROW_COUNT, std::vector(COL_COUNT, 0)) {
   InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
   SetTargetFPS(60);
-  two_pong_setup(grid, pongs);
+  four_pong_setup(grid, pongs);
+
+  for (auto& [id, pong] : pongs) {
+    pong.score = 0;
+  }
+
+  for (int r = 0, rows = grid.size(); r < rows; ++r) {
+    for (int c = 0, cols = grid[r].size(); c < cols; ++c) {
+      ++pongs[grid[r][c]].score;
+    }
+  }
 }
 
 Game::~Game() {
@@ -35,6 +45,12 @@ void Game::draw_background() const {
 #endif // SHOW_DEBUG_GRID
 }
 
+void Game::draw_scores() const {
+  for (auto& [id, pong] : pongs) {
+    DrawText(TextFormat("%i", pong.score), pong.text_pos.x, pong.text_pos.y, 40, pong.fg_color);
+  }
+}
+
 void Game::draw_pongs() const {
   for (auto& [id, pong] : pongs) {
     DrawCircle(pong.pos.x, pong.pos.y, PONG_RADIUS, pong.fg_color);
@@ -50,6 +66,7 @@ void Game::show() const {
   ClearBackground(BLACK);
 
   draw_background();
+  draw_scores();
   draw_pongs();
 
   EndDrawing();
@@ -62,6 +79,8 @@ void Game::update() {
     int top_row = top.y / CELL_HEIGHT;
 
     if (in_bound(top_col, top_row) && grid[top_row][top_col] != id) {
+      --pongs[grid[top_row][top_col]].score;
+      ++pong.score;
       grid[top_row][top_col] = id;
       pong.vel.y *= -1;
     }
@@ -71,25 +90,31 @@ void Game::update() {
     int right_row = right.y / CELL_HEIGHT;
 
     if (in_bound(right_col, right_row) && grid[right_row][right_col] != id) {
+      --pongs[grid[right_row][right_col]].score;
+      ++pong.score;
       grid[right_row][right_col] = id;
       pong.vel.x *= -1;
     }
 
     Vector2 bottom = Vector2Add(pong.pos, { 0, PONG_RADIUS });
-    int bottom_column = bottom.x / CELL_WIDTH;
+    int bottom_col = bottom.x / CELL_WIDTH;
     int bottom_row = bottom.y / CELL_HEIGHT;
 
-    if (in_bound(bottom_column, bottom_row) && grid[bottom_row][bottom_column] != id) {
-      grid[bottom_row][bottom_column] = id;
+    if (in_bound(bottom_col, bottom_row) && grid[bottom_row][bottom_col] != id) {
+      --pongs[grid[bottom_row][bottom_col]].score;
+      ++pong.score;
+      grid[bottom_row][bottom_col] = id;
       pong.vel.y *= -1;
     }
 
     Vector2 left = Vector2Add(pong.pos, { -PONG_RADIUS, 0 });
-    int left_column = left.x / CELL_WIDTH;
+    int left_col = left.x / CELL_WIDTH;
     int left_row = left.y / CELL_HEIGHT;
 
-    if (in_bound(left_column, left_row) && grid[left_row][left_column] != id) {
-      grid[left_row][left_column] = id;
+    if (in_bound(left_col, left_row) && grid[left_row][left_col] != id) {
+      --pongs[grid[left_row][left_col]].score;
+      ++pong.score;
+      grid[left_row][left_col] = id;
       pong.vel.x *= -1;
     }
 
